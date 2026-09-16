@@ -1,0 +1,8 @@
+version: 1
+builder:
+  configs:
+    - swift_version: '6.3'
+      documentation_targets:
+        - XcodeProjectFormat
+      custom_documentation_parameters:
+        - '--experimental-transform-for-static-hosting-with-content'

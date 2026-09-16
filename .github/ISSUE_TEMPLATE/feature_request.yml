@@ -1,0 +1,38 @@
+name: "🌱 Feature Request"
+description: Suggest a feature or improvement for xcode-project-format
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We use feature requests to understand community needs and inform our
+        roadmap. We keep the API surface intentionally focused, and new
+        schema fields/types need verification against Xcode's actual
+        behavior — not all requests will be accepted. We'll be transparent
+        about our thinking.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: What problem does this solve? What are you trying to do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context

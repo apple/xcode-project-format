@@ -1,0 +1,6 @@
+.DS_Store
+.docc-build
+xcuserdata
+.build
+.swiftpm
+Package.resolved

@@ -1,0 +1,28 @@
+name: "❓ Question"
+description: Ask a question about xcode-project-format
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before asking, please check [existing issues](../../issues) — your
+        question may already be answered.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Include any relevant code, error messages, or environment details.
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you already tried?

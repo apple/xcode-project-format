@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>CFBundleDisplayName</key>
+	<string>Xcode Project Format</string>
+	<key>CFBundleName</key>
+	<string>Xcode Project Format</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundlePackageType</key>
+	<string>DOCS</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.dt.Xcode.XcodeProjectFormat-Package.Docc</string>
+</dict>
+</plist>

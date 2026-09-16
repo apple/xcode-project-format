@@ -1,0 +1,6 @@
+# xcode-project-format — CODEOWNERS
+#
+# This file defines ownership for code review.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+* @jonathanjhess @rconnell9 @deccylol @jakepetroules @owenv
