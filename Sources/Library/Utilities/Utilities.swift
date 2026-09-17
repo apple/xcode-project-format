@@ -454,14 +454,14 @@ extension String {
         }
     }
 
-    package enum UnscapingResult {
+    package enum UnescapingResult {
         case complete(String)
         case unescapedSequence(unescaped: String, remaining: String)
         case invalidEscapeSequence(Character)
         case unresolvedEscape
     }
 
-    package func unescapingUntilError(escapedCharacter: Character) -> UnscapingResult {
+    package func unescapingUntilError(escapedCharacter: Character) -> UnescapingResult {
         let escapeIndicator: Character = "\\"
         let hasEscaping = anySatisfy { candidate in
             (candidate == escapeIndicator) || (candidate == escapedCharacter)
