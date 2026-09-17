@@ -34,6 +34,14 @@ let package = Package(
                 .define("ENABLE_PERFORMANCE_TESTS", .when(configuration: .release)),
             ],
         ),
+        .testTarget(
+            name: "XcodeProjectToolTests",
+            dependencies: ["XcodeProjectTool", "XcodeProjectFormat"],
+            path: "Sources/ToolTests",
+            resources: [
+                .copy("Fixtures"),
+            ],
+        ),
     ],
     swiftLanguageModes: [.v6],
 )
