@@ -41,7 +41,7 @@ You'll find types for folders, file references, groups, targets, build phases, b
 
 ## Documentation
 
-The [project documentation](https://swiftpackageindex.com/apple/xcode-project-format/documentation/XcodeProjectFormat) is available at [Swift Package Index](https://swiftpackageindex.com/).
+The [project documentation](https://swiftpackageindex.com/apple/xcode-project-format/main/documentation/xcodeprojectformat) is available at [Swift Package Index](https://swiftpackageindex.com/).
 
 To preview it locally:
 
