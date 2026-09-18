@@ -39,7 +39,9 @@ let package = Package(
 )
 
 for target in package.targets {
-    target.swiftSettings = [
+    // Append, rather than assign: assigning would discard the settings declared
+    // on the targets above (e.g. the test target's `ENABLE_PERFORMANCE_TESTS`).
+    target.swiftSettings = (target.swiftSettings ?? []) + [
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("ImmutableWeakCaptures"),
         .enableUpcomingFeature("InferIsolatedConformances"),
