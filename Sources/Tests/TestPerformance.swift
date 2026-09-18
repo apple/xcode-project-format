@@ -16,9 +16,19 @@ extension TimeInterval {
     }
 }
 
+#if ENABLE_PERFORMANCE_TESTS
+let performanceTestsAreEnabledForBuildConfiguration = true
+#else
+let performanceTestsAreEnabledForBuildConfiguration = false
+#endif
+
+/// Performance tests only run in release builds, and only against a corpus of real
+/// `.xcproj` files supplied via `XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR`.
+let performanceTestsAreRunnable = performanceTestsAreEnabledForBuildConfiguration && (SampleData.sourceDirectory != nil)
+
+@Suite(.enabled(if: performanceTestsAreRunnable, "Performance tests require a release build and a directory of sample projects in \(SampleData.sourceDirectoryEnvironmentVariable)."))
 struct TestPerformance {
     func measureTransformingSampleProjectData<Result>(testName: String = #function, body: (SampleData.Record) throws -> Result) throws {
-        #if ENABLE_PERFORMANCE_TESTS
         let sampleData = try SampleData.sharedInstance.get()
         let testDurations = try Array(repetitions: 100) {
             try measureDuration {
@@ -38,9 +48,6 @@ struct TestPerformance {
         print("    mean: \(mean?.formattedSeconds() ?? "N/A")")
         print("  median: \(median?.formattedSeconds() ?? "N/A")")
         print("   total: \(total.formattedSeconds())")
-        #else
-        try Test.cancel("Performance tests are only enabled in release builds.")
-        #endif
     }
 
     @Test func testAnyJSONSerializationInstantiationPerformance() throws {
@@ -83,5 +90,18 @@ struct TestPerformance {
         try measureTransformingSampleProjectData { record in
             try XCJSON.Encoder.data(for: record.project, options: .defaultOptions)
         }
+    }
+}
+
+@Suite struct TestPerformanceTestGating {
+    /// `ENABLE_PERFORMANCE_TESTS` is declared on the test target in `Package.swift`.
+    /// A manifest change that replaces, rather than extends, a target's `swiftSettings`
+    /// silently drops that definition and leaves the performance tests permanently skipped.
+    @Test func testGatingMatchesBuildConfiguration() {
+        #if DEBUG
+        #expect(performanceTestsAreEnabledForBuildConfiguration == false)
+        #else
+        #expect(performanceTestsAreEnabledForBuildConfiguration == true, "ENABLE_PERFORMANCE_TESTS should be defined for release builds of the test target.")
+        #endif
     }
 }

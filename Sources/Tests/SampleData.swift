@@ -35,8 +35,16 @@ struct SampleData : Sendable {
         self.records = try paths.map(Record.init(path:))
     }
 
+    static let sourceDirectoryEnvironmentVariable = "XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR"
+
+    /// The directory holding the `.xcproj` files the performance tests run against,
+    /// or `nil` when the environment variable naming it is not set.
+    static var sourceDirectory: String? {
+        ProcessInfo.processInfo.environment[sourceDirectoryEnvironmentVariable]
+    }
+
     init() throws {
-        try self.init(sourceDirectory: ProcessInfo.processInfo.environment["XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR"].unwrap(orThrow: "Missing environment variable for \("XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR".quoted)"))
+        try self.init(sourceDirectory: Self.sourceDirectory.unwrap(orThrow: "Missing environment variable for \(Self.sourceDirectoryEnvironmentVariable.quoted)"))
     }
 }
 
