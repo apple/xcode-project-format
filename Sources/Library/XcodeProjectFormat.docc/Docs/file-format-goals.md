@@ -47,7 +47,7 @@ The primary way we achieve this goal is structuring the file so that one edit in
 
 When a user changes one thing in the UI, and gets one diff hunk in the file, and it's adjacent to the thing they manipulated, then the only way they'll get a merge conflict is if another user manipulates the same object. That's unlikely, and it feels justified.
 
-When a new file is added to a project, and referenced by an existing target, this format contains the diff to the file insertion. The file references the target it's been inserted into, rather than having the target reference the file that is now a member. Either of these encodings work, but having the file reference the target results in one diff hunk instead of two. Also, if the target were to refer to its files, it would need a list. The list would have to have some order, but the order would be meaningless. Updating the list would produce a second diff, which harms readability, increases the likelihood of conflict, and makes conflict in that space feel unjustified since the order was meaningless.
+When a new file is added to a project, and referenced by an existing target, this format contains the diff to the file insertion. The file references the target it's been inserted into, rather than having the target reference the file that is now a member. Either of these encodings works, but having the file reference the target results in one diff hunk instead of two. Also, if the target were to refer to its files, it would need a list. The list would have to have some order, but the order would be meaningless. Updating the list would produce a second diff, which harms readability, increases the likelihood of conflict, and makes conflict in that space feel unjustified since the order was meaningless.
 
 - - -
 
