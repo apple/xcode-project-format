@@ -172,7 +172,7 @@ The project is encoded as a JSON tree, but some nodes need to form explicit refe
 
 There are unique value types used to establish each of these relationships. In the previous example, a `TargetBuildPhaseReference` is used, which is composed of enough information to uniquely look up the target and build phase. Some objects have unique name requirements and can simply be referenced by name. Others don't and can either be referenced by name or identifier, and sometimes a path of names. Identifiers are UUID-like strings and are very durable but off-putting in code review. The format prefers to use self-describing name references when they're unique and otherwise uses identifiers. Since identifiers are off-putting in diffs, they're only used when an object is distantly referenced and a name reference would be ambiguous. Notably, targets and target products can be referenced by external files, so they should always have IDs.
 
-It is the client's responsibility to decide which objects need IDs and if references should use IDs or names.
+It is the client's responsibility to decide which objects need IDs and whether references should use IDs or names.
 
 - - -
 
