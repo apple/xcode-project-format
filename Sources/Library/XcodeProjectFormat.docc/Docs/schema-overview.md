@@ -89,7 +89,7 @@ Xcode offers a type of opaque folder reference where the content of the folder d
 
 These are very different from the Folder described above, even though they look very similar in the Xcode UI.
 
-Opaque folders are represented by file references that happen to refer to a folder, and hence it is the single file reference with no children that participates in the build graph.
+Opaque folders are represented by file references that happen to refer to a folder, and hence an opaque folder is a single file reference with no children that participates in the build graph.
 
 ### Project References
 
