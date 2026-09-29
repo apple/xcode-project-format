@@ -60,4 +60,4 @@ We welcome contributions within a defined scope. See [CONTRIBUTING.md](CONTRIBUT
 
 ## License
 
-Licensed under the [Apache License 2.0](LICENSE.txt).
+Licensed under the [Apache License 2.0 with Runtime Library Exception](LICENSE.txt).
