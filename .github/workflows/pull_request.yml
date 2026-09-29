@@ -5,23 +5,32 @@ permissions:
 
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  tests:
+    name: Test
+    uses: swiftlang/github-workflows/.github/workflows/swift_package_test.yml@0.0.15
+    with:
+      linux_exclude_swift_versions: '[{"swift_version": "5.9"}, {"swift_version": "5.10"}, {"swift_version": "6.0"}]'
+      windows_exclude_swift_versions: '[{"swift_version": "5.9"}, {"swift_version": "6.0"}]'
+      enable_macos_checks: true
+      enable_macos_swiftly_checks: true
+      enable_ios_checks: true
+      enable_freebsd_checks: true
+      enable_linux_static_sdk_build: true
+      enable_wasm_sdk_build: true
+      enable_android_sdk_build: true
+      enable_android_sdk_checks: true
+
   soundness:
     name: Soundness
     uses: swiftlang/github-workflows/.github/workflows/soundness.yml@0.0.15
     with:
-      license_header_check_enabled: true
-      api_breakage_check_enabled: false
-      docs_check_enabled: false
-      unacceptable_language_check_enabled: false
-      broken_symlink_check_enabled: false
+      docs_check_macos_enabled: false
+      docs_check_macos_xcode_version: "swift_6.4"
       format_check_enabled: false
-      shell_check_enabled: false
-      yamllint_check_enabled: false
-      python_lint_check_enabled: false

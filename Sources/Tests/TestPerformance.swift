@@ -39,7 +39,9 @@ struct TestPerformance {
         print("  median: \(median?.formattedSeconds() ?? "N/A")")
         print("   total: \(total.formattedSeconds())")
         #else
+        #if compiler(>=6.3)
         try Test.cancel("Performance tests are only enabled in release builds.")
+        #endif
         #endif
     }
 
