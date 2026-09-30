@@ -1,6 +1,6 @@
 # Contributing to xcode-project-format
 
-The `xcode-project-format` source code is open source under the [Apache License 2.0](LICENSE.txt). We welcome contributions within a defined scope — please read this document before opening a pull request or issue.
+The `xcode-project-format` source code is open source under the [Apache License 2.0 with Runtime Library Exception](LICENSE.txt). We welcome contributions within a defined scope — please read this document before opening a pull request or issue.
 
 ## How you can help
 
