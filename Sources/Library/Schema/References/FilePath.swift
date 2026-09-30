@@ -82,7 +82,9 @@ extension XCSchema.FilePath: XCJSON.InlineKeyedCodable {
             let base = try Base(expansionVariable: expansionVariable).unwrap(orThrow: "Invalid path base: \(expansionVariable.smartQuoted)")
             try self.init(base: base, path: path)
         } else {
-            try self.init(base: string.hasPrefix("/") ? .absolute : .group, path: string.unescaping("<"))
+            // Match init(base:path:), which treats a leading ~ as absolute (Xcode expands it).
+            let isAbsolutePath = string.hasPrefix("/") || string.hasPrefix("~")
+            try self.init(base: isAbsolutePath ? .absolute : .group, path: string.unescaping("<"))
         }
     }
 
