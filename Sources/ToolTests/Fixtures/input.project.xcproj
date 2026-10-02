@@ -1,0 +1,15 @@
+{
+  // Deliberately non-canonical order and whitespace.
+  "targets": [
+    {
+      "id": "0123456789ABCDEF",
+      "name": "App",
+    },
+  ],
+  "files": [],
+  "localizations": {
+    "supported": [],
+    "development": "en",
+  },
+  "default-configuration": "Debug",
+}
