@@ -11,6 +11,12 @@ import Foundation
 
 
 struct SampleData : Sendable {
+    static let sourceDirectoryEnvironmentVariable = "XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR"
+
+    static var sourceDirectory: String? {
+        ProcessInfo.processInfo.environment[sourceDirectoryEnvironmentVariable]
+    }
+
     static let sharedInstance = Result {
         try SampleData()
     }
@@ -32,11 +38,14 @@ struct SampleData : Sendable {
     let records: [Record]
     init(sourceDirectory: String) throws {
         let paths = try FileManager.default.recursivelyFindFiles(matchingExtension: "xcproj", in: sourceDirectory)
+        guard !paths.isEmpty else {
+            throw NSError("No .xcproj files found in \(sourceDirectory.quoted)")
+        }
         self.records = try paths.map(Record.init(path:))
     }
 
     init() throws {
-        try self.init(sourceDirectory: ProcessInfo.processInfo.environment["XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR"].unwrap(orThrow: "Missing environment variable for \("XC_PROJECT_FORMAT_TEST_PROJECT_SOURCE_DIR".quoted)"))
+        try self.init(sourceDirectory: Self.sourceDirectory.unwrap(orThrow: "Missing environment variable for \(Self.sourceDirectoryEnvironmentVariable.quoted)"))
     }
 }
 
