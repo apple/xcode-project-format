@@ -16,9 +16,18 @@ extension TimeInterval {
     }
 }
 
+#if ENABLE_PERFORMANCE_TESTS
+private let arePerformanceTestsEnabled = true
+#else
+private let arePerformanceTestsEnabled = false
+#endif
+
+@Suite(
+    .enabled(if: arePerformanceTestsEnabled, "Performance tests are only enabled in release builds."),
+    .enabled(if: SampleData.sourceDirectory != nil, "Set \(SampleData.sourceDirectoryEnvironmentVariable) to a directory of sample projects to run performance tests.")
+)
 struct TestPerformance {
     func measureTransformingSampleProjectData<Result>(testName: String = #function, body: (SampleData.Record) throws -> Result) throws {
-        #if ENABLE_PERFORMANCE_TESTS
         let sampleData = try SampleData.sharedInstance.get()
         let testDurations = try Array(repetitions: 100) {
             try measureDuration {
@@ -38,11 +47,6 @@ struct TestPerformance {
         print("    mean: \(mean?.formattedSeconds() ?? "N/A")")
         print("  median: \(median?.formattedSeconds() ?? "N/A")")
         print("   total: \(total.formattedSeconds())")
-        #else
-        #if compiler(>=6.3)
-        try Test.cancel("Performance tests are only enabled in release builds.")
-        #endif
-        #endif
     }
 
     @Test func testAnyJSONSerializationInstantiationPerformance() throws {

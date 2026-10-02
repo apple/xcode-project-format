@@ -48,7 +48,7 @@ let package = Package(
 )
 
 for target in package.targets {
-    target.swiftSettings = [
+    target.swiftSettings = (target.swiftSettings ?? []) + [
         .enableUpcomingFeature("ExistentialAny"),
         .enableUpcomingFeature("ImmutableWeakCaptures"),
         .enableUpcomingFeature("InferIsolatedConformances"),
