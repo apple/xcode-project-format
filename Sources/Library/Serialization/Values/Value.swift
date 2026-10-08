@@ -164,7 +164,7 @@ extension XCJSON.Value: Decodable {
         } else if container.decodeNil() {
             self = .null
         } else {
-            throw NSError("Unrecongized JSON object")
+            throw NSError("Unrecognized JSON object")
         }
     }
 }

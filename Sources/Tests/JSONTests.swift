@@ -185,6 +185,9 @@ struct XCJSONRoundTrippingTests {
 
         expect(.group, "File.swift", roundTripsAndEncodesTo: "File.swift")
         expect(.absolute, "/File.swift", roundTripsAndEncodesTo: "/File.swift")
+        expect(.absolute, "~/project/File.swift", roundTripsAndEncodesTo: "~/project/File.swift")
+        expect(.absolute, "~", roundTripsAndEncodesTo: "~")
+        expect(.absolute, "~user/File.swift", roundTripsAndEncodesTo: "~user/File.swift")
         expect(.project, "File.swift", roundTripsAndEncodesTo: "<PROJECT>/File.swift")
         expect(.sdk, "File.swift", roundTripsAndEncodesTo: "<SDK>/File.swift")
         expect(.developer, "File.swift", roundTripsAndEncodesTo: "<DEVELOPER>/File.swift")

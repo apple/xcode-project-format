@@ -442,7 +442,7 @@ extension XCSchema.FilePath: TestInstanceDefining {
         var testCases: [Self] = []
         var testPathFramgents = ["/", "A", "B", "<", ">", "USER", "\\"]
         testPathFramgents.enumerateAllSubsetPermutationJoinings { path in
-            if !path.hasPrefix("/") {
+            if !path.hasPrefix("/") && !path.hasPrefix("~") {
                 for relativeBase in relativeBases {
                     try! testCases.append(Self(base: relativeBase, path: path))
                 }
@@ -452,6 +452,9 @@ extension XCSchema.FilePath: TestInstanceDefining {
         testPathFramgents.enumerateAllSubsetPermutationJoinings { path in
             try! testCases.append(Self(base: .absolute, path: "/" + path))
         }
+        try! testCases.append(Self(base: .absolute, path: "~"))
+        try! testCases.append(Self(base: .absolute, path: "~/Sources/Foo.swift"))
+        try! testCases.append(Self(base: .absolute, path: "~user/file.swift"))
         return testCases
     }()
 }

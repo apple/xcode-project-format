@@ -111,6 +111,9 @@ struct TestStringEscapingDuringEncoding {
         expect(.absolute, "/")
         expect(.absolute, "/.")
         expect(.absolute, "/..")
+        expect(.absolute, "~")
+        expect(.absolute, "~/.")
+        expect(.absolute, "~user")
 
         expect(.project, "")
 
