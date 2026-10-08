@@ -1,0 +1,14 @@
+{
+  "default-configuration": "Debug",
+  "localizations": {
+    "development": "en",
+  },
+  "files": [
+  ],
+  "targets": [
+    {
+      "name": "App",
+      "id": "0123456789ABCDEF",
+    },
+  ],
+}
