@@ -96,7 +96,8 @@ extension String.Encoding: XCJSON.Codable {
         if let stringRepresentation {
             try stringRepresentation.encode(with: coder)
         } else {
-            try Int(rawValue).encode(with: coder)
+            let value = try Int(exactly: rawValue).unwrap(orThrow: "Unsupported text encoding \(rawValue)")
+            try value.encode(with: coder)
         }
     }
 
@@ -104,7 +105,9 @@ extension String.Encoding: XCJSON.Codable {
         if coder.currentNodeType == .string {
             self = try StringRepresentation(with: coder).memoryRepresentation
         } else {
-            self = try Self(rawValue: UInt(Int(with: coder)))
+            let value = try Int(with: coder)
+            let rawValue = try UInt(exactly: value).unwrap(orThrow: "Invalid text encoding \(value)")
+            self = Self(rawValue: rawValue)
         }
     }
 }
