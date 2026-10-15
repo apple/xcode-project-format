@@ -30,7 +30,7 @@ extension XCJSON {
             let oldPath = currentPath; defer {
                 currentPath = oldPath
             }
-            let oldCurrentValue = value; defer {
+            let oldCurrentValue = currentValue; defer {
                 currentValue = oldCurrentValue
             }
             let newPath = AbsolutePath(parent: oldPath, component: pathComponent)
