@@ -54,7 +54,7 @@ Before opening an issue:
 
 - Search [existing issues](../../issues) to avoid duplicates
 - Use the appropriate [issue template](../../issues/new/choose)
-- For security issues, follow the org-level security disclosure process. [TODO: link before public release]
+- For security issues, follow the [org-level security disclosure process](https://github.com/apple/xcode-project-format/security).
 
 ## Submitting pull requests
 
