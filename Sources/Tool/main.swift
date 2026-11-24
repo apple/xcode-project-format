@@ -12,8 +12,18 @@ import Foundation
 platform_exit(main())
 
 func main() -> Int32 {
+    let arguments: Arguments
     do {
-        let arguments = try Arguments(commandLine: CommandLine.arguments)
+        arguments = try Arguments(commandLine: CommandLine.arguments)
+    } catch {
+        let error = error as NSError
+        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n\n----------------------------\n\n"
+        try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
+        try? printHelp(to: .standardError)
+        return 1
+    }
+
+    do {
         if arguments.help {
             try printHelp(to: .standardOutput)
         } else {
@@ -24,10 +34,9 @@ func main() -> Int32 {
         return 0
     } catch {
         let error = error as NSError
-        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n\n----------------------------\n\n"
-        try! FileHandle.standardError.write(contentsOf: message.utf8.asData)
-        try! printHelp(to: .standardError)
-        return -1
+        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n"
+        try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
+        return 1
     }
 }
 
