@@ -13,17 +13,22 @@ The xcprojformatter tool pretty prints 'project.xcproj' Xcode project files in t
 Usage:
 
     xcprojformatter [[--input] input-project] [--output output-project]
+    xcprojformatter --verify [[--input] input-project]
     xcprojformatter --help
 
 Arguments:
     --input     The path to an Xcode project. It can refer to the outer ".xcodeproj" directory, or the inner "project.xcproj" file.
     --output    The path to an Xcode project. It can refer to the outer ".xcodeproj" directory, or the inner "project.xcproj" file.
     --update    A short hand for passing --input and --output with the same value.
+    --verify    Exits with status 0 if the input is already in canonical format, or 1 if formatting would change it.
 
 Example Invocations:
 
     # Updates `Project.xcodeproj/project.xcproj` in place
     xcprojformatter --update Project.xcodeproj
+
+    # Verifies that `Project.xcodeproj/project.xcproj` is in canonical format
+    xcprojformatter --verify Project.xcodeproj
 
     # Reads a project file on standard input, pretty prints it, and writes it to standard output.
     xcprojformatter
