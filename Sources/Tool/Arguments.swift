@@ -13,6 +13,7 @@ struct Arguments {
     var inputPath: String?
     var outputPath: String?
     var help = false
+    var verify = false
 
     init(commandLine: [String]) throws {
         var remaining = commandLine.dropFirst()
@@ -20,6 +21,8 @@ struct Arguments {
             switch next {
                 case "--help":
                     help = true
+                case "--verify":
+                    verify = true
                 case "--input":
                     try require(inputPath == nil, orThrow: "Two values passed for '--input'")
                     inputPath = try remaining.extractFirst().unwrap(orThrow: "Missing argument for '--input'")
@@ -40,6 +43,7 @@ struct Arguments {
                     }
             }
         }
+        try require(!(verify && outputPath != nil), orThrow: "Cannot combine '--verify' with '--output' or '--update'")
         inputPath = inputPath?.expandingTildeInPath
         outputPath = outputPath?.expandingTildeInPath
     }

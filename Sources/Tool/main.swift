@@ -16,6 +16,10 @@ func main() -> Int32 {
         let arguments = try Arguments(commandLine: CommandLine.arguments)
         if arguments.help {
             try printHelp(to: .standardOutput)
+        } else if arguments.verify {
+            let inputData = try readInputData(from: arguments.inputPath)
+            let outputData = try prettyPrint(input: inputData)
+            return outputData == inputData ? 0 : 1
         } else {
             let inputData = try readInputData(from: arguments.inputPath)
             let outputData = try prettyPrint(input: inputData)
