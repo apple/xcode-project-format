@@ -16,9 +16,7 @@ func main() -> Int32 {
     do {
         arguments = try Arguments(commandLine: CommandLine.arguments)
     } catch {
-        let error = error as NSError
-        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n\n----------------------------\n\n"
-        try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
+        printError(error, terminator: "\n\n----------------------------\n\n")
         try? printHelp(to: .standardError)
         return 1
     }
@@ -33,9 +31,7 @@ func main() -> Int32 {
         }
         return 0
     } catch {
-        let error = error as NSError
-        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n"
-        try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
+        printError(error)
         return 1
     }
 }
@@ -73,6 +69,11 @@ func readInputData(from inputPath: String?) throws -> Data {
     } else {
         return try FileHandle.standardInput.readToEnd().unwrap(orThrow: "Could not read standard input")
     }
+}
+
+private func printError(_ error: any Error, terminator: String = "\n") {
+    let message = (error as NSError).localizedDescriptionCombinedWithRecoverySuggestionIfPresent + terminator
+    try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
 }
 
 func printHelp(to handle: FileHandle) throws {
