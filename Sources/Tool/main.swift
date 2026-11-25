@@ -12,8 +12,16 @@ import Foundation
 platform_exit(main())
 
 func main() -> Int32 {
+    let arguments: Arguments
     do {
-        let arguments = try Arguments(commandLine: CommandLine.arguments)
+        arguments = try Arguments(commandLine: CommandLine.arguments)
+    } catch {
+        printError(error, terminator: "\n\n----------------------------\n\n")
+        try? printHelp(to: .standardError)
+        return 1
+    }
+
+    do {
         if arguments.help {
             try printHelp(to: .standardOutput)
         } else {
@@ -23,11 +31,8 @@ func main() -> Int32 {
         }
         return 0
     } catch {
-        let error = error as NSError
-        let message = error.localizedDescriptionCombinedWithRecoverySuggestionIfPresent + "\n\n----------------------------\n\n"
-        try! FileHandle.standardError.write(contentsOf: message.utf8.asData)
-        try! printHelp(to: .standardError)
-        return -1
+        printError(error)
+        return 1
     }
 }
 
@@ -64,6 +69,11 @@ func readInputData(from inputPath: String?) throws -> Data {
     } else {
         return try FileHandle.standardInput.readToEnd().unwrap(orThrow: "Could not read standard input")
     }
+}
+
+private func printError(_ error: any Error, terminator: String = "\n") {
+    let message = (error as NSError).localizedDescriptionCombinedWithRecoverySuggestionIfPresent + terminator
+    try? FileHandle.standardError.write(contentsOf: message.utf8.asData)
 }
 
 func printHelp(to handle: FileHandle) throws {
